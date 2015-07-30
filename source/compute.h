@@ -1,5 +1,7 @@
 #pragma once
 
+#include "type.h"
+
 #include <iostream>
 
 #include <vector>
@@ -17,6 +19,7 @@ std::vector<T> get_max_subarray(const std::vector<T>& array)
 
     auto temp = std::vector<T>(); // stocks the temporary array we are calculating the sum on
     temp.reserve(array.size());
+
     for (const auto& val : array)
     {
         // as soon as the value we are on become negative we can be sure it wont be the max value
@@ -41,13 +44,13 @@ std::vector<T> get_max_subarray(const std::vector<T>& array)
 
 // the simple version of the kadane without the array stocking
 template<typename T>
-T kadane(const std::vector<T>& array, int& begin, int& end)
+T kadane(const std::vector<T>& array, unsigned& begin, unsigned& end)
 {
     T max_ending_here = 0;
     T result = 0;
 
-    int pos = 0;
-    int temp_begin;
+    unsigned pos = 0;
+    unsigned temp_begin;
 
     for (const auto& val : array)
     {
@@ -77,52 +80,49 @@ std::vector<std::vector<T>> get_max_subarray(const std::vector<std::vector<T>>& 
     T max_sum = 0;
     T sum = 0;
 
-    std::pair<unsigned, unsigned> first_point, last_point;
-
     std::vector<T> temp(array.size());
-    int begin, end;
+    unsigned left = 0;
+    unsigned right = 0;
 
-    for (int left = 0; left < array[0].size(); ++left)
+    Rectangle pos(0, 0, 0, 0);
+
+    for (unsigned top = 0; top < array[0].size(); ++top)
     {
         for (auto& value : temp)
             value = 0;
 
-        for (int right = left; right < array[0].size(); ++right)
+        for (unsigned bottom = top; bottom < array[0].size(); ++bottom)
         {
-            for (int i = 0; i < array.size(); ++i)
-                temp[i] += array[i][right];
+            for (unsigned i = 0; i < array.size(); ++i)
+                temp[i] += array[i][bottom];
 
-            sum = kadane(temp, begin, end);
+            sum = kadane(temp, left, right);
 
             if (sum > max_sum)
             {
 
                 max_sum = sum;
-                first_point.first = left;
-                first_point.second = begin;
-                
-                last_point.first = right;
-                last_point.second = end;
+                pos = Rectangle(left, top, right, bottom);
             }
         }
     }
 
     std::cout << "Top left corner: ("
-        << first_point.first << ", " << first_point.second << ")" << std::endl;
+        << pos.top << ", " << pos.left << ")" << std::endl;
     std::cout << "Bottom right corner: ("
-        << last_point.first << ", " << last_point.second << ")" << std::endl;
+        << pos.bottom << ", " << pos.right << ")" << std::endl;
 
     std::cout << "Sum = " << max_sum << std::endl;
 
-    auto result = std::vector<std::vector<T>>(last_point.second - first_point.second + 1);
-    auto col = std::vector<T>(last_point.first - first_point.first + 1);
+    auto result = std::vector<std::vector<T>>(pos.right - pos.left + 1);
+    auto col = std::vector<T>(pos.bottom - pos.top + 1);
 
     for (auto& vec : result)
         vec = col;
 
-    for (int i = first_point.second; i <= last_point.second; ++i)
-        for (int j = first_point.first; j <= last_point.first; ++j)
-            result[i - first_point.second][j - first_point.first] = array[i][j];
+    for (unsigned i = pos.left; i <= pos.right; ++i)
+        for (unsigned j = pos.top; j <= pos.bottom; ++j)
+            result[i - pos.left][j - pos.top] = array[i][j];
 
     return result;
 }

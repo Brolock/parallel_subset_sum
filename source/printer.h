@@ -24,10 +24,10 @@ void print_vector(const std::vector<std::vector<T>>& vec)
         return;
     }
     std::cout << "[\n";
-    for (int j = 0; j < vec[0].size(); ++j)
+    for (unsigned j = 0; j < vec[0].size(); ++j)
     {
         std::cout << "{ ";
-        for (int i = 0; i < vec.size(); ++i)
+        for (unsigned i = 0; i < vec.size(); ++i)
         {
             // Boring checking to have a nice alignement in the printing
             if (vec[i][j] >= 0 && vec[i][j] < 10)

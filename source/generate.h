@@ -19,7 +19,7 @@ std::vector<T> generate_array(std::size_t size, T max = 100)
     srand(time(nullptr));
 
     std::for_each(vec.begin(), vec.end(),
-            [](T& n){ n = (rand() % 100) - 50; });
+            [&](T& n){ n = (rand() % max) - max / 2; });
 
     return vec;
 }
@@ -35,10 +35,10 @@ std::vector<std::vector<T>> generate_2D_array(std::size_t size, T max = 100)
     srand(time(nullptr));
 
     std::for_each(vec.begin(), vec.end(),
-            [](std::vector<T>& columns)
+            [&](std::vector<T>& columns)
             {
                 std::for_each(columns.begin(), columns.end(),
-                    [](T& n){ n = (rand() % 100) - 50; });
+                    [&](T& n){ n = (rand() % max) - max / 2; });
             });
     return vec;
 }

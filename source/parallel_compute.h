@@ -84,7 +84,7 @@ std::vector<std::vector<T>> parallel_max_subarray(const std::vector<std::vector<
     std::cerr << "Bottom right corner: ("
         << pos.bottom << ", " << pos.right << ")" << std::endl;
 
-    std::cout << "Sum = " << max << std::endl;
+    std::cerr << "Sum = " << max << std::endl;
 
     auto result = std::vector<std::vector<T>>(pos.right - pos.left + 1);
     auto col = std::vector<T>(pos.bottom - pos.top + 1);

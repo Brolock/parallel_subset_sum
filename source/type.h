@@ -36,7 +36,7 @@ public:
         auto elapsed = double((std::clock() - start_) / double(CLOCKS_PER_SEC));
         double clock_elapsed = double(clock_end.tv_sec - clock_start_.tv_sec);
         clock_elapsed += double(clock_end.tv_nsec - clock_start_.tv_nsec) / 1000000000.0;
-        std::cout << name_ << " CPU time usage: " << elapsed * 1000 << " ms\n\t\tReal time: "
+        std::cerr << name_ << " CPU time usage: " << elapsed * 1000 << " ms\n\t\tReal time: "
             << clock_elapsed << std::endl;
 
     }

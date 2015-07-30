@@ -79,9 +79,9 @@ std::vector<std::vector<T>> parallel_max_subarray(const std::vector<std::vector<
     auto max = looper.get_max();
     auto pos(looper.get_pos());
 
-    std::cout << "Top left corner: ("
+    std::cerr << "Top left corner: ("
         << pos.top << ", " << pos.left << ")" << std::endl;
-    std::cout << "Bottom right corner: ("
+    std::cerr << "Bottom right corner: ("
         << pos.bottom << ", " << pos.right << ")" << std::endl;
 
     std::cout << "Sum = " << max << std::endl;

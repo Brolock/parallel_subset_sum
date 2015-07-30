@@ -10,6 +10,8 @@ int main(int argc, const char *argv[])
     if (argc < 2)
         return -1;
 
+    std::cout << "array of size: " << atoi(argv[1]) << "x" << atoi(argv[1]) << std::endl;
+
     auto array_2D = tools::generate_2D_array<int>(atoi(argv[1]));
     tools::print_vector(array_2D);
 

@@ -109,9 +109,9 @@ std::vector<std::vector<T>> get_max_subarray(const std::vector<std::vector<T>>& 
         }
     }
 
-    std::cout << "Top left corner: ("
+    std::cerr << "Top left corner: ("
         << pos.top << ", " << pos.left << ")" << std::endl;
-    std::cout << "Bottom right corner: ("
+    std::cerr << "Bottom right corner: ("
         << pos.bottom << ", " << pos.right << ")" << std::endl;
 
     std::cout << "Sum = " << max_sum << std::endl;

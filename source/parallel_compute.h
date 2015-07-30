@@ -71,7 +71,10 @@ std::vector<std::vector<T>> parallel_max_subarray(const std::vector<std::vector<
 {
     Looper<int> looper(array);
 
-    tbb::parallel_reduce(tbb::blocked_range<unsigned>(0, array[0].size()), looper);
+    {
+        Timer timer("Parallel loop");
+        tbb::parallel_reduce(tbb::blocked_range<unsigned>(0, array[0].size()), looper);
+    }
 
     auto max = looper.get_max();
     auto pos(looper.get_pos());

@@ -86,23 +86,25 @@ std::vector<std::vector<T>> get_max_subarray(const std::vector<std::vector<T>>& 
 
     Rectangle pos(0, 0, 0, 0);
 
-    for (unsigned top = 0; top < array[0].size(); ++top)
     {
-        for (auto& value : temp)
-            value = 0;
-
-        for (unsigned bottom = top; bottom < array[0].size(); ++bottom)
+        Timer timer("mono_thread");
+        for (unsigned top = 0; top < array[0].size(); ++top)
         {
-            for (unsigned i = 0; i < array.size(); ++i)
-                temp[i] += array[i][bottom];
+            for (auto& value : temp)
+                value = 0;
 
-            sum = kadane(temp, left, right);
-
-            if (sum > max_sum)
+            for (unsigned bottom = top; bottom < array[0].size(); ++bottom)
             {
+                for (unsigned i = 0; i < array.size(); ++i)
+                    temp[i] += array[i][bottom];
 
-                max_sum = sum;
-                pos = Rectangle(left, top, right, bottom);
+                sum = kadane(temp, left, right);
+
+                if (sum > max_sum)
+                {
+                    max_sum = sum;
+                    pos = Rectangle(left, top, right, bottom);
+                }
             }
         }
     }
